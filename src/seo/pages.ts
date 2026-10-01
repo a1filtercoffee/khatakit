@@ -49,7 +49,7 @@ function definePage({ path, name, title, description, lastModified, load, schema
 }
 
 const HOME_DESCRIPTION =
-  'Free GST, income tax and loan calculators for India, with the workings shown. Every calculation runs in your browser, with no account and no tracking.';
+  'Free GST, income tax and loan calculators for India, with the workings shown. Every calculation runs in your browser, with no account and no cookies.';
 
 const home = definePage({
   path: '/',

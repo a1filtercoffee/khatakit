@@ -23,12 +23,14 @@ This matters when you have to explain a figure to a client or attach it to a cha
 ## Privacy
 
 Your inputs never leave your browser.
-Khatakit has no analytics, no tracking and no cookies.
+Khatakit uses Cloudflare Web Analytics for page visits and site performance, without cookies.
+Financial inputs and calculation results are not sent to analytics.
 Downloads are built in the browser, so nothing is uploaded to make a CSV or Excel file.
 
 Tests check this promise.
 The privacy tests for GST late fee and TDS interest, and the GST calculator page test, fill in the form, copy results, import a file and download workings.
-They fail if the page makes any network request: `fetch`, `XMLHttpRequest` or `sendBeacon`.
+They fail if the calculator makes any network request: `fetch`, `XMLHttpRequest` or `sendBeacon`.
+These component tests do not load the analytics script in the HTML template.
 The prerendered HTML contains only page content and default form values, never user input.
 
 ## Tech stack

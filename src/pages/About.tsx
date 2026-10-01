@@ -42,8 +42,8 @@ export default function About() {
                 . Sagar is an independent developer.
               </p>
               <p>
-                Khatakit is free and open source under the MIT licence. It has no accounts, no
-                analytics, no tracking and no cookies.
+                Khatakit is free and open source under the MIT licence. It has no accounts or
+                cookies. Cloudflare Web Analytics measures page visits and site performance.
               </p>
             </div>
           </Panel>
@@ -92,16 +92,16 @@ export default function About() {
                     'Your financial inputs are processed in your browser, without sending them to a calculation server.',
                   ],
                   [
-                    'No accounts or tracking',
-                    'The tools do not use analytics, tracking pixels or cookies.',
+                    'Analytics without cookies',
+                    'Cloudflare Web Analytics measures page visits and site performance without cookies. Financial inputs and calculation results are not sent to analytics.',
                   ],
                   [
                     'No saved financial inputs',
                     'Working values stay in page memory. Reloading the page clears them; copying results is your choice.',
                   ],
                   [
-                    'Locally served assets',
-                    'The website serves its own scripts and icons. Opening the site still makes normal requests to the static host.',
+                    'Website requests',
+                    'The website serves its application scripts and icons from the static host and loads an analytics script from Cloudflare. Your browser sends page and performance metrics to Cloudflare.',
                   ],
                 ].map(([title, body]) => (
                   <li key={title}>
