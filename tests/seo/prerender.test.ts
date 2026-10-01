@@ -135,3 +135,29 @@ describe('prerendered HTML', () => {
     await expect(renderDocument('<html></html>', '/')).rejects.toThrow('placeholder');
   });
 });
+
+
+describe('guide navigation', () => {
+  for (const path of ['/gst-late-fee-interest-calculator', '/tds-interest-calculator']) {
+    it(`provides working static guide anchors on ${path}`, async () => {
+      const { document } = await load(path);
+      const links = Array.from(document.querySelectorAll('nav[aria-label="On this page"] a'));
+      expect(links.length).toBeGreaterThan(3);
+      for (const link of links) {
+        const id = link.getAttribute('href')!.slice(1);
+        expect(document.getElementById(id)?.tagName).toBe('H3');
+        expect(document.querySelectorAll(`[id="${id}"]`)).toHaveLength(1);
+      }
+    });
+  }
+  it('links common questions to readable sections on calculator pages', async () => {
+    const { document } = await load('/');
+    const links = Array.from(document.querySelectorAll('.common-tasks a'));
+    expect(links).toHaveLength(4);
+    for (const link of links) {
+      const [path, id] = link.getAttribute('href')!.split('#');
+      const target = await load(path);
+      expect(target.document.getElementById(id)?.tagName).toBe('H3');
+    }
+  });
+});

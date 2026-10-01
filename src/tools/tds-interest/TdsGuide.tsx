@@ -16,8 +16,20 @@ const march = MARCH.result;
 
 export default function TdsGuide() {
   return (
-    <CalculatorGuide title="How TDS interest is calculated">
-      <GuideSection title="What are the TDS interest rates?">
+    <CalculatorGuide
+      title="How TDS interest is calculated"
+      sections={[
+        { id: 'interest-rates', title: 'What are the TDS interest rates?' },
+        { id: 'deposit-due-dates', title: 'When is TDS due for deposit?' },
+        { id: 'worked-example', title: 'Worked example' },
+        { id: 'counting-months', title: 'Does TDS interest use calendar months or 30-day months?' },
+        { id: 'edge-cases', title: 'Edge cases' },
+        { id: 'assumptions', title: 'Assumptions and supported period' },
+        { id: 'references', title: 'References' },
+        { id: 'related-calculators', title: 'Related calculators' },
+      ]}
+    >
+      <GuideSection id="interest-rates" title="What are the TDS interest rates?">
         <p>
           Late deduction costs 1% a month and late deposit costs 1.5% a month, on the TDS amount.
         </p>
@@ -43,7 +55,7 @@ export default function TdsGuide() {
         </ul>
       </GuideSection>
 
-      <GuideSection title="When is TDS due for deposit?">
+      <GuideSection id="deposit-due-dates" title="When is TDS due for deposit?">
         <p>
           TDS deducted in any month is due by the 7th of the next month. TDS deducted in March is
           due by 30 April, or by 7 April for a government office paying by challan. A government
@@ -68,7 +80,7 @@ export default function TdsGuide() {
         </p>
       </GuideSection>
 
-      <GuideSection title="Worked example">
+      <GuideSection id="worked-example" title="Worked example">
         <p>
           TDS of {formatRupees(w.amount)} became deductible on{' '}
           {formatDisplayDate(WORKED.input.deductibleOn)}, was deducted on{' '}
@@ -97,7 +109,10 @@ export default function TdsGuide() {
         </ol>
       </GuideSection>
 
-      <GuideSection title="Does TDS interest use calendar months or 30-day months?">
+      <GuideSection
+        id="counting-months"
+        title="Does TDS interest use calendar months or 30-day months?"
+      >
         <p>
           TRACES uses calendar months. Several tribunal rulings use 30-day months, so the calculator
           shows both.
@@ -124,7 +139,7 @@ export default function TdsGuide() {
         </p>
       </GuideSection>
 
-      <GuideSection title="Edge cases">
+      <GuideSection id="edge-cases" title="Edge cases">
         <ul>
           <li>Deposit on the due date: no late-deposit interest.</li>
           <li>
@@ -150,7 +165,7 @@ export default function TdsGuide() {
         </ul>
       </GuideSection>
 
-      <GuideSection title="Assumptions and supported period">
+      <GuideSection id="assumptions" title="Assumptions and supported period">
         <ul>
           <li>Dates from 1 April 2021 up to today.</li>
           <li>
@@ -175,7 +190,7 @@ export default function TdsGuide() {
         </ul>
       </GuideSection>
 
-      <GuideSection title="References">
+      <GuideSection id="references" title="References">
         <ul>
           {tdsInterestCitations.map(({ source }) => (
             <li key={source.id}>
@@ -201,7 +216,7 @@ export default function TdsGuide() {
         </ul>
       </GuideSection>
 
-      <GuideSection title="Related calculators">
+      <GuideSection id="related-calculators" title="Related calculators">
         <RelatedTools
           slugs={['advance-tax', 'gst-late-fee', 'presumptive-tax']}
           reasons={{

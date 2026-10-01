@@ -203,6 +203,34 @@ export default function Home() {
               </div>
             )}
           </section>
+          <section className="workbench-about common-tasks" aria-labelledby="common-tasks-title">
+            <div>
+              <h2 id="common-tasks-title">Common GST and TDS questions</h2>
+              <p>Read the rules, examples and assumptions before calculating.</p>
+              <ul>
+                <li>
+                  <Link to="/gst-late-fee-interest-calculator#late-fee-rates">
+                    How GST late fees and interest are calculated
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/gst-late-fee-interest-calculator#edge-cases">
+                    GST nil returns and late fee caps
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/tds-interest-calculator#deposit-due-dates">
+                    TDS deposit due dates, including March
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/tds-interest-calculator#counting-months">
+                    Counting months for TDS interest
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </section>
           <section className="workbench-about" aria-labelledby="about-title">
             <div>
               <h2 id="about-title">About Khatakit</h2>

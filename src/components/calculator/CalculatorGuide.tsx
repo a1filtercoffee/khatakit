@@ -4,9 +4,11 @@ import { useId, type ReactNode } from 'react';
 export default function CalculatorGuide({
   title,
   children,
+  sections = [],
 }: {
   title: string;
   children: ReactNode;
+  sections?: { id: string; title: string }[];
 }) {
   const id = useId();
   return (
@@ -14,13 +16,34 @@ export default function CalculatorGuide({
       <h2 id={id} className="guide-title">
         {title}
       </h2>
+      {sections.length > 0 && (
+        <nav className="guide-contents" aria-label="On this page">
+          <p>On this page</p>
+          <ul>
+            {sections.map((section) => (
+              <li key={section.id}>
+                <a href={`#${section.id}`}>{section.title}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
       <div className="guide-grid">{children}</div>
     </section>
   );
 }
 
-export function GuideSection({ title, children }: { title: string; children: ReactNode }) {
-  const id = useId();
+export function GuideSection({
+  title,
+  children,
+  id: suppliedId,
+}: {
+  title: string;
+  children: ReactNode;
+  id?: string;
+}) {
+  const generatedId = useId();
+  const id = suppliedId ?? generatedId;
   return (
     <section className="guide-section" aria-labelledby={id}>
       <h3 id={id} className="section-title">

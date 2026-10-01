@@ -1,4 +1,7 @@
-import CalculatorGuide, { Formula, GuideSection } from '../../components/calculator/CalculatorGuide';
+import CalculatorGuide, {
+  Formula,
+  GuideSection,
+} from '../../components/calculator/CalculatorGuide';
 import BreakdownTable from '../../components/calculator/BreakdownTable';
 import { formatCurrency } from '../../lib/utils/format';
 import {
@@ -40,12 +43,22 @@ export default function GstGuide() {
   const ex = WORKED_EXAMPLE;
   const cap = CAP_EXAMPLE;
   return (
-    <CalculatorGuide title="GST late fee and interest rules">
-      <GuideSection title="How are the GST late fee and interest calculated?">
+    <CalculatorGuide
+      title="GST late fee and interest rules"
+      sections={[
+        { id: 'late-fee-rates', title: 'How are the GST late fee and interest calculated?' },
+        { id: 'worked-example', title: 'Worked example' },
+        { id: 'edge-cases', title: 'Edge cases' },
+        { id: 'assumptions', title: 'Supported period and assumptions' },
+        { id: 'references', title: 'References' },
+        { id: 'related-calculators', title: 'Related calculators' },
+      ]}
+    >
+      <GuideSection id="late-fee-rates" title="How are the GST late fee and interest calculated?">
         <p>
           The late fee is a daily amount for each day late, up to a cap. Interest applies only to a
-          late GSTR-3B. Days late count from the day after the due date to the filing date. The late fee is
-          charged per head: once under CGST and the same amount again under SGST or UTGST.
+          late GSTR-3B. Days late count from the day after the due date to the filing date. The late
+          fee is charged per head: once under CGST and the same amount again under SGST or UTGST.
         </p>
         <Formula
           where={
@@ -81,7 +94,7 @@ export default function GstGuide() {
         />
       </GuideSection>
 
-      <GuideSection title="Worked example">
+      <GuideSection id="worked-example" title="Worked example">
         <p>
           A regular GSTR-3B for April 2026 was due on {displayDate(ex.input.dueDate)} and filed on{' '}
           {displayDate(ex.input.filingDate)}. Aggregate turnover in the previous year was up to ₹1.5
@@ -93,8 +106,8 @@ export default function GstGuide() {
             the due date to the filing date.
           </li>
           <li>
-            Late fee per head: {fee(PERIODIC_LATE_FEE.perDay)} × {ex.daysLate} = {fee(ex.feePerHead)}
-            . This is below the {fee(ex.capPerHead)} cap.
+            Late fee per head: {fee(PERIODIC_LATE_FEE.perDay)} × {ex.daysLate} ={' '}
+            {fee(ex.feePerHead)}. This is below the {fee(ex.capPerHead)} cap.
           </li>
           <li>
             Total late fee: {fee(ex.feePerHead)} CGST + {fee(ex.feePerHead)} SGST ={' '}

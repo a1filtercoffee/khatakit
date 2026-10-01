@@ -252,3 +252,23 @@
     transition: none;
   }
 }
+
+.guide-contents {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.guide-contents p {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.guide-contents ul,
+.common-tasks ul {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+}
+.guide-section h3[id] {
+  scroll-margin-top: 6rem;
+}

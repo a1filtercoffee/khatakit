@@ -5,7 +5,7 @@ import { gstLateFeeCitations } from '../../lib/legal/citations/gst-late-fee';
 export default function GstGuideNotes() {
   return (
     <>
-      <GuideSection title="Edge cases">
+      <GuideSection id="edge-cases" title="Edge cases">
         <ul>
           <li>
             <strong>Nil return.</strong> A nil GSTR-3B (no tax payable) or a nil GSTR-1 (no outward
@@ -33,16 +33,16 @@ export default function GstGuideNotes() {
           </li>
           <li>
             <strong>Three-year limit.</strong> The GST portal does not accept a return more than
-            three years after its due date, from the July 2025 tax period. The calculator warns
-            when the filing date is past that limit.
+            three years after its due date, from the July 2025 tax period. The calculator warns when
+            the filing date is past that limit.
           </li>
         </ul>
       </GuideSection>
 
-      <GuideSection title="Supported period and assumptions">
+      <GuideSection id="assumptions" title="Supported period and assumptions">
         <p>
-          Rules as in force in September 2026. GSTR-3B and GSTR-1 are supported for tax periods
-          from June 2021, with due dates from 1 July 2021. GSTR-9 is supported from FY 2022-23.
+          Rules as in force in September 2026. GSTR-3B and GSTR-1 are supported for tax periods from
+          June 2021, with due dates from 1 July 2021. GSTR-9 is supported from FY 2022-23.
         </p>
         <ul>
           <li>The tax is taken as paid on the filing date.</li>
@@ -61,7 +61,7 @@ export default function GstGuideNotes() {
         </ul>
       </GuideSection>
 
-      <GuideSection title="References">
+      <GuideSection id="references" title="References">
         <ul>
           {gstLateFeeCitations.map(({ source }) => (
             <li key={source.id}>
@@ -74,7 +74,7 @@ export default function GstGuideNotes() {
         </ul>
       </GuideSection>
 
-      <GuideSection title="Related calculators">
+      <GuideSection id="related-calculators" title="Related calculators">
         <RelatedTools
           slugs={['gst-calculator', 'tds-interest', 'advance-tax']}
           reasons={{
