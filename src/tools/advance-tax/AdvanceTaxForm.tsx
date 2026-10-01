@@ -13,6 +13,11 @@ interface AdvanceTaxFormProps {
 export default function AdvanceTaxForm({ form, errors, onChange }: AdvanceTaxFormProps) {
   return (
     <div className="form-stack">
+      <p className="field-help">
+        For regular quarterly instalments and ordinary-rate income.{' '}
+        <a href="/presumptive-income-calculator">Presumptive filers use a different schedule.</a>{' '}
+        Capital gains and other special-rate income need a separate computation.
+      </p>
       <RadioGroup
         label="Tax regime"
         value={form.regime}
@@ -61,13 +66,13 @@ export default function AdvanceTaxForm({ form, errors, onChange }: AdvanceTaxFor
 
       <NumberInput
         id="tds-deducted"
-        label="TDS already deducted"
+        label="Expected annual TDS / TCS"
         value={form.tdsDeducted}
         onChange={(v) => onChange({ ...form, tdsDeducted: v })}
         prefix="₹"
         reportInvalid
         error={errors.tdsDeducted}
-        helpText="TDS and TCS expected for the year"
+        helpText="Eligible Indian tax credits expected for this income year, including amounts already deducted. Enter advance-tax payments separately in the payment planner."
       />
 
       <Select

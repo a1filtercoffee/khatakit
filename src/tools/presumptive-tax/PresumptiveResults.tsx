@@ -21,6 +21,17 @@ export default function PresumptiveResults({ result, regime, errors }: Presumpti
   if (Object.keys(errors).length > 0) return <ValidationSummary errors={errors} />;
   if (!result) return <EmptyState>Enter your receipts to see the calculation.</EmptyState>;
 
+  if (!result.isWithinLimit) {
+    return (
+      <Notice title="Receipts above the limit" tone="warning">
+        Gross receipts of {formatCurrency(result.grossReceipts)} exceed the{' '}
+        {formatCurrency(result.applicableLimit)} limit for your cash share. This scheme is
+        unavailable for these entries, so no tax estimate is shown. Ask your accountant about
+        calculating tax from actual income and expenses.
+      </Notice>
+    );
+  }
+
   const rows = presumptiveLines(result, regime).map((line) => ({
     item: line.item,
     amount: typeof line.amount === 'number' ? formatCurrency(line.amount) : line.amount,
@@ -28,15 +39,6 @@ export default function PresumptiveResults({ result, regime, errors }: Presumpti
 
   return (
     <div className="result-stack">
-      {!result.isWithinLimit && (
-        <Notice title="Receipts above the limit" tone="warning">
-          Gross receipts of {formatCurrency(result.grossReceipts)} are above the{' '}
-          {formatCurrency(result.applicableLimit)} limit that applies when cash is{' '}
-          {formatPercent(result.cashSharePercent)} of receipts. Presumptive taxation under section
-          58(2) is not available at this level. Please consult a CA.
-        </Notice>
-      )}
-
       <div className="result-grid result-grid-three">
         <ResultCard
           label="Presumptive income"

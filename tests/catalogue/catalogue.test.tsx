@@ -45,10 +45,10 @@ afterEach(() => {
 
 describe('tool discovery', () => {
   it('combines task search with category filters and recovers from no results', () => {
-    const input = search('loan repayment');
+    const input = search('late filing');
     expect(toolLinks()).toHaveLength(1);
-    expect(toolLinks()[0].getAttribute('href')).toBe('/emi-calculator');
-    click('GST');
+    expect(toolLinks()[0].getAttribute('href')).toBe('/gst-late-fee-interest-calculator');
+    click('Income Tax');
     expect(toolLinks()).toHaveLength(0);
     expect(container.textContent).toContain('No tools match this search');
     click('Show all tools');

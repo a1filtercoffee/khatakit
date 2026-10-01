@@ -36,7 +36,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
     <text x="92" y="300" fill="${color.ink}">Accounting &amp;</text>
     <text x="92" y="386" fill="${color.action}">tax tools</text>
   </g>
-  <text x="96" y="458" font-family="${sans}" font-weight="600" font-size="32" fill="${color.text}">Free calculators for GST, income tax and loans.</text>
+  <text x="96" y="458" font-family="${sans}" font-weight="600" font-size="32" fill="${color.text}">Tools for GST filing costs, TDS and income tax.</text>
   <g transform="translate(826 118) rotate(-4 140 140) scale(7)">${mark(0.45)}</g>
   <line x1="96" y1="528" x2="1104" y2="528" stroke="${color.border}" stroke-width="2"/>
   <text x="96" y="580" font-family="${sans}" font-weight="700" font-size="28" fill="${color.action}">khatakit.in</text>

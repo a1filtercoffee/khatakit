@@ -8,7 +8,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
 const server = await import(pathToFileURL(join(root, 'dist-ssr/entry-server.js')).href);
 
-// "/emi-calculator" becomes emi-calculator.html. Vercel (cleanUrls in vercel.json)
+// "/advance-tax-calculator" becomes advance-tax-calculator.html. Vercel (cleanUrls in vercel.json)
 // serves that file at the extensionless URL, which matches the canonical.
 // A folder index.html would be redirected to a trailing-slash URL instead.
 const outputFile = (path) => (path === '/' ? 'index.html' : `${path.slice(1)}.html`);

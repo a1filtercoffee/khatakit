@@ -87,8 +87,8 @@ describe('client hydration', () => {
   it('keeps one set of head tags matching the registry while navigating', async () => {
     await serve('/');
     await hydrate();
-    await follow('a[href="/emi-calculator"]', findPage('/emi-calculator'));
-    expect(container.querySelector('h1')?.textContent).toBe('EMI Calculator');
+    await follow('a[href="/advance-tax-calculator"]', findPage('/advance-tax-calculator'));
+    expect(container.querySelector('h1')?.textContent).toBe('Advance Tax Calculator');
     await follow('footer a[href="/about"]', findPage('/about'));
     await follow('nav[aria-label="Breadcrumb"] a[href="/"]', findPage('/'));
   });

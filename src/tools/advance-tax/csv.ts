@@ -15,10 +15,10 @@ export function advanceTaxCsv(result: AdvanceTaxResult): string {
     ['Advance tax', TAX_YEAR_LABEL],
     ['Regime', regimeName(result)],
     ['Total tax', comp.totalTax],
-    ['TDS deducted', comp.tdsDeducted],
+    ['Expected annual TDS / TCS', comp.tdsDeducted],
     ['Net tax payable', comp.netTaxPayable],
     [],
-    ['Instalment', 'Due date', 'Cumulative %', 'Amount due', 'Cumulative amount'],
+    ['Instalment', 'Due date', 'Cumulative %', 'Planned instalment', 'Cumulative amount'],
     ...result.schedule.map((q) => [
       q.quarter,
       q.dueDate,

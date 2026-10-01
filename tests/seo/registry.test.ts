@@ -4,10 +4,14 @@ import { PUBLISHER, REPO_URL, SITE_URL } from '../../src/seo/site';
 import { tools } from '../../src/data/tools';
 
 type Schema = Record<string, unknown>;
-const schemaOfType = (jsonLd: Schema[], type: string) => jsonLd.find((item) => item['@type'] === type);
+const schemaOfType = (jsonLd: Schema[], type: string) =>
+  jsonLd.find((item) => item['@type'] === type);
 
 const publisher = { '@type': 'Organization', name: PUBLISHER.name, url: PUBLISHER.url };
-const latestReview = tools.map((tool) => tool.rulesReviewed).sort().at(-1);
+const latestReview = tools
+  .map((tool) => tool.contentUpdated ?? tool.rulesReviewed)
+  .sort()
+  .at(-1);
 
 describe('route registry', () => {
   it('gives every public page a title, description and absolute canonical', () => {
@@ -51,13 +55,13 @@ describe('route registry', () => {
     }
   });
 
-  it('dates each calculator page from the rules review date in the catalogue', () => {
+  it('dates calculator content separately from its rules review', () => {
     for (const tool of tools) {
-      expect(tool.rulesReviewed).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(tool.contentUpdated ?? tool.rulesReviewed).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       const page = findPage(tool.path);
-      expect(page.lastModified).toBe(tool.rulesReviewed);
+      expect(page.lastModified).toBe(tool.contentUpdated ?? tool.rulesReviewed);
       expect(schemaOfType(page.jsonLd, 'WebApplication')).toMatchObject({
-        dateModified: tool.rulesReviewed,
+        dateModified: tool.contentUpdated ?? tool.rulesReviewed,
       });
     }
     expect(findPage('/').lastModified).toBe(latestReview);
@@ -150,9 +154,12 @@ describe('route registry', () => {
   });
 
   it('resolves pathnames the way the router matches them', () => {
-    expect(findPage('/emi-calculator').path).toBe('/emi-calculator');
-    expect(findPage('/emi-calculator/').path).toBe('/emi-calculator');
-    expect(findPage('/EMI-Calculator').path).toBe('/emi-calculator');
+    expect(findPage('/advance-tax-calculator').path).toBe('/advance-tax-calculator');
+    expect(findPage('/advance-tax-calculator/').path).toBe('/advance-tax-calculator');
+    expect(findPage('/Advance-Tax-Calculator').path).toBe('/advance-tax-calculator');
     expect(findPage('/missing')).toBe(notFoundPage);
+    expect(findPage('/emi-calculator')).toBe(notFoundPage);
+    expect(findPage('/gst-calculator')).toBe(notFoundPage);
+    expect(tools).toHaveLength(4);
   });
 });

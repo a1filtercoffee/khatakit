@@ -34,6 +34,7 @@ export interface TaxComputation {
 export interface QuarterlyInstallment {
   quarter: string;
   dueDate: string;
+  dueDateISO: string;
   cumulativePercent: number;
   cumulativeAmount: number;
   installmentAmount: number;

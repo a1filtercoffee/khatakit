@@ -19,21 +19,24 @@ describe('sitemap and robots', () => {
     expect(locations).toEqual([
       'https://khatakit.in/',
       'https://khatakit.in/gst-late-fee-interest-calculator',
-      'https://khatakit.in/gst-calculator',
       'https://khatakit.in/advance-tax-calculator',
-      'https://khatakit.in/emi-calculator',
       'https://khatakit.in/presumptive-income-calculator',
       'https://khatakit.in/tds-interest-calculator',
       'https://khatakit.in/about',
     ]);
   });
 
-  it('dates calculators from their rules review, and home and about from the latest one', () => {
+  it('uses actual content updates for lastmod without changing the rules review', () => {
     const lastmod = entries(buildSitemap(pages));
     for (const tool of tools) {
-      expect(lastmod[`https://khatakit.in${tool.path}`], tool.path).toBe(tool.rulesReviewed);
+      expect(lastmod[`https://khatakit.in${tool.path}`], tool.path).toBe(
+        tool.contentUpdated ?? tool.rulesReviewed
+      );
     }
-    const latest = tools.map((tool) => tool.rulesReviewed).sort().at(-1);
+    const latest = tools
+      .map((tool) => tool.contentUpdated ?? tool.rulesReviewed)
+      .sort()
+      .at(-1);
     expect(lastmod['https://khatakit.in/']).toBe(latest);
     expect(lastmod['https://khatakit.in/about']).toBe(latest);
   });
@@ -50,6 +53,8 @@ describe('sitemap and robots', () => {
   });
 
   it('allows crawling and points to the sitemap', () => {
-    expect(buildRobots()).toBe('User-agent: *\nAllow: /\n\nSitemap: https://khatakit.in/sitemap.xml\n');
+    expect(buildRobots()).toBe(
+      'User-agent: *\nAllow: /\n\nSitemap: https://khatakit.in/sitemap.xml\n'
+    );
   });
 });

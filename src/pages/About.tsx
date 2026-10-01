@@ -24,7 +24,7 @@ export default function About() {
             <div className="prose">
               <p>
                 <strong>Khata means ledger. Kit means toolkit.</strong> Khatakit brings together
-                free calculators for taxes, loans and everyday accounting in India.
+                free tools for GST filing costs, TDS and income tax in India.
               </p>
               <p>
                 Each calculator shows its workings, assumptions and sources. The calculators are
@@ -120,7 +120,9 @@ export default function About() {
                 If a figure looks wrong, open an issue on GitHub. Include the calculator name, the
                 period and a made-up example. Keep personal financial records out of public issues.
               </p>
-              <p>The source code is public. Corrections, suggestions and pull requests are welcome.</p>
+              <p>
+                The source code is public. Corrections, suggestions and pull requests are welcome.
+              </p>
             </div>
             <div className="page-actions">
               <a

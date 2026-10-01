@@ -76,9 +76,8 @@ export default function GstGuideNotes() {
 
       <GuideSection id="related-calculators" title="Related calculators">
         <RelatedTools
-          slugs={['gst-calculator', 'tds-interest', 'advance-tax']}
+          slugs={['tds-interest', 'advance-tax']}
           reasons={{
-            'gst-calculator': 'Work out CGST, SGST or IGST on a bill, with GST included or extra.',
             'tds-interest': 'Interest on TDS deducted or paid late.',
             'advance-tax': 'Income tax instalments and their due dates.',
           }}

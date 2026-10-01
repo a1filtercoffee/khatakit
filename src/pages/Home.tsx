@@ -29,7 +29,7 @@ export default function Home() {
                 <br />
                 <span>tax tools</span>
               </h1>
-              <p className="workbench-subtitle">Free calculators for GST, income tax and loans.</p>
+              <p className="workbench-subtitle">Tools for GST filing costs, TDS and income tax.</p>
               <p className="workbench-description">
                 Each tool includes a calculation breakdown.
                 <br />
@@ -166,7 +166,7 @@ export default function Home() {
                 <ToolIcon name="search" />
                 <h3>No tools match this search</h3>
                 <p>
-                  Try GST, 44ADA or loan repayment. You can also reset the category to see every
+                  Try GST late fees, TDS or 44ADA. You can also reset the category to see every
                   tool.
                 </p>
                 <button type="button" onClick={reset}>

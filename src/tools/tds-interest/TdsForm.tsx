@@ -94,6 +94,29 @@ export default function TdsForm(props: Props) {
         helpText="Used when the date deducted or deposited is blank. Starts as today."
       />
 
+      {mode === 'single' && (
+        <>
+          <button
+            type="button"
+            className="button button-secondary"
+            onClick={() => {
+              props.onDeductorTypeChange('non-government');
+              props.onAsOfChange('2026-06-20');
+              onSingleChange({
+                amount: 10000,
+                deductible: '2026-05-10',
+                deducted: '2026-05-10',
+                deposited: '2026-06-20',
+              });
+            }}
+          >
+            Load sample case
+          </button>
+          <p className="field-help">
+            Sample: ₹10,000 deducted on 10 May and deposited on 20 June 2026.
+          </p>
+        </>
+      )}
       {mode === 'bulk' && props.bulkImport}
     </div>
   );

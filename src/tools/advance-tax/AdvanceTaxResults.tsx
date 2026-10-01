@@ -7,6 +7,7 @@ import ValidationSummary from '../../components/calculator/ValidationSummary';
 import { formatCurrency } from '../../lib/utils/format';
 import { advanceTaxCsv, advanceTaxFilename, advanceTaxText } from './csv';
 import TaxSheet from './TaxSheet';
+import PaymentPlanner from './PaymentPlanner';
 import type { AdvanceTaxField } from './schema';
 import type { AdvanceTaxInput, AdvanceTaxResult } from './types';
 
@@ -55,12 +56,14 @@ export default function AdvanceTaxResults({ input, result, errors }: AdvanceTaxR
         />
       </div>
 
+      {result.schedule.length > 0 && <PaymentPlanner schedule={result.schedule} />}
+
       {result.schedule.length > 0 && (
         <div>
           <div className="section-heading">
-            <h3 className="section-title">Advance tax schedule</h3>
+            <h3 className="section-title">Annual instalment targets</h3>
             <div className="result-actions">
-              <CopyButton text={advanceTaxText(result)} label="Copy" />
+              <CopyButton text={advanceTaxText(result)} label="Copy annual targets" />
               <DownloadButton
                 label="Download CSV"
                 filename={advanceTaxFilename(result)}
@@ -73,7 +76,7 @@ export default function AdvanceTaxResults({ input, result, errors }: AdvanceTaxR
               { key: 'quarter', label: 'Instalment', align: 'left' },
               { key: 'dueDate', label: 'Due date', align: 'left' },
               { key: 'percent', label: 'Cumulative %', align: 'right', mono: true },
-              { key: 'installment', label: 'Amount due', align: 'right', mono: true },
+              { key: 'installment', label: 'Planned instalment', align: 'right', mono: true },
               { key: 'cumulative', label: 'Cumulative', align: 'right', mono: true },
             ]}
             rows={result.schedule.map((q) => ({
@@ -86,9 +89,9 @@ export default function AdvanceTaxResults({ input, result, errors }: AdvanceTaxR
             caption="Quarterly advance tax schedule"
           />
           <p className="field-help">
-            Amount due is {selectedName.toLowerCase()} regime net tax × cumulative %, less the
-            earlier instalments. Presumptive filers under section 58(2) pay the whole amount by 15
-            March 2027.
+            Planned instalment is {selectedName.toLowerCase()} regime net tax × cumulative %, less
+            the earlier instalments. Presumptive filers under section 58(2) pay the whole amount by
+            15 March 2027.
           </p>
         </div>
       )}

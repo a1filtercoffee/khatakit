@@ -31,6 +31,12 @@ export default function SingleResult({ result, draft, options }: Props) {
 
   return (
     <div className="result-stack">
+      <Notice title="Comparing with a TRACES demand?" tone="info">
+        Start with the calendar-month working and compare the dates and amounts against your
+        justification report. The 30-day calculation is an alternative comparison, not an
+        instruction to pay the lower amount. This tool covers interest; a demand may also include
+        fees or other defaults.
+      </Notice>
       <div className="result-grid result-grid-three">
         <ResultCard
           label="Interest, calendar months"

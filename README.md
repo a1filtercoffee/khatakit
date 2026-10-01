@@ -1,6 +1,6 @@
 # Khatakit
 
-Khatakit is a set of free calculators for Indian accounting, tax and loans.
+Khatakit is a set of free calculators for Indian GST filing costs, TDS and income tax.
 It lives at [khatakit.in](https://khatakit.in).
 Every calculation runs in your browser.
 There is no account, no backend and no database.
@@ -14,11 +14,9 @@ This matters when you have to explain a figure to a client or attach it to a cha
 | Calculator | Path | What it does |
 |---|---|---|
 | GST late fee and interest | `/gst-late-fee-interest-calculator` | Late fee under section 47 and interest under section 50 for GSTR-3B, GSTR-1 and GSTR-9, with turnover caps. |
-| GST calculator | `/gst-calculator` | Adds or removes GST on one amount or a whole bill with lines at different rates. CGST, SGST or IGST to the paisa. |
 | TDS interest | `/tds-interest-calculator` | Interest on TDS deducted late (1%) or deposited late (1.5%), for one case or many rows. CSV import, CSV and Excel download. |
 | Advance tax | `/advance-tax-calculator` | Quarterly instalments for tax year 2026-27, with old and new regime side by side. |
 | Presumptive income | `/presumptive-income-calculator` | Income under section 58 of the Income-tax Act, 2025 (old 44AD and 44ADA), with the turnover limits and a tax estimate. |
-| EMI | `/emi-calculator` | Loan EMI by the reducing balance method, with a year-wise schedule and a monthly schedule download. |
 
 ## Privacy
 
@@ -72,7 +70,7 @@ npm run build
 ```
 
 The build type-checks the code, builds the browser bundle, builds a server bundle into `dist-ssr/`, and then runs `scripts/prerender.mjs`.
-The prerender writes one HTML file per page into `dist/`, for example `dist/emi-calculator.html`.
+The prerender writes one HTML file per page into `dist/`, for example `dist/advance-tax-calculator.html`.
 It also writes `dist/404.html`, `dist/sitemap.xml` and `dist/robots.txt`.
 `dist/` is the folder you deploy.
 Run `npm run preview` to serve it locally.
@@ -143,3 +141,9 @@ Check the figures with a chartered accountant or the official portal before you 
 
 MIT.
 See [LICENSE](LICENSE).
+
+## Product changes, 1 October 2026
+
+EMI and basic GST amount calculations have been removed from the public catalogue, routes and sitemap. Old URLs return a not-found page. The four remaining tools focus on GST filing costs, TDS interest and income tax.
+
+Advance tax includes a dated payment planner for regular quarterly instalments. It subtracts actual advance-tax payments from cumulative targets and does not calculate default interest. Presumptive tax stops payable estimates when receipts exceed the selected scheme limit. The GST date helper covers standard monthly GSTR-1 and GSTR-3B deadlines; it excludes quarterly returns, IFF and extensions. TDS results explain how to compare calendar-month workings with a justification report.

@@ -29,7 +29,15 @@ interface PageDefinition {
   schema?: JsonLd[];
 }
 
-function definePage({ path, name, title, description, lastModified, load, schema = [] }: PageDefinition): Page {
+function definePage({
+  path,
+  name,
+  title,
+  description,
+  lastModified,
+  load,
+  schema = [],
+}: PageDefinition): Page {
   const trail = path === '/' ? [] : [HOME_CRUMB, { name, path }];
   const site = [organizationSchema(), webSiteSchema()];
   return {
@@ -49,14 +57,18 @@ function definePage({ path, name, title, description, lastModified, load, schema
 }
 
 const HOME_DESCRIPTION =
-  'Free GST, income tax and loan calculators for India, with the workings shown. Every calculation runs in your browser, with no account and no cookies.';
+  'Free GST late fee, TDS and income tax tools for India, with the workings shown. Every calculation runs in your browser, with no account and no cookies.';
 
 const home = definePage({
   path: '/',
   name: HOME_CRUMB.name,
   title: 'Khatakit - Free Accounting & Financial Tools for India',
   description: HOME_DESCRIPTION,
-  lastModified: latestRulesReview,
+  lastModified:
+    tools
+      .map((tool) => tool.contentUpdated ?? tool.rulesReviewed)
+      .sort()
+      .at(-1) ?? latestRulesReview,
   load: () => import('../pages/Home').then((module) => ({ Component: module.default })),
   schema: [
     collectionSchema({
@@ -74,14 +86,14 @@ const calculators = tools.map((tool) =>
     name: tool.name,
     title: tool.seoTitle,
     description: tool.seoDescription,
-    lastModified: tool.rulesReviewed,
+    lastModified: tool.contentUpdated ?? tool.rulesReviewed,
     load: tool.load,
     schema: [
       webApplicationSchema({
         name: tool.name,
         description: tool.seoDescription,
         url: SITE_URL + tool.path,
-        dateModified: tool.rulesReviewed,
+        dateModified: tool.contentUpdated ?? tool.rulesReviewed,
       }),
       faqSchema(tool.faq),
     ],
@@ -94,7 +106,11 @@ const about = definePage({
   title: 'About Khatakit - Who Builds It and How Rules Are Checked',
   description:
     'Who builds Khatakit, how its tax rules are checked against primary sources, how to report an error, and how your inputs stay in your browser.',
-  lastModified: latestRulesReview,
+  lastModified:
+    tools
+      .map((tool) => tool.contentUpdated ?? tool.rulesReviewed)
+      .sort()
+      .at(-1) ?? latestRulesReview,
   load: () => import('../pages/About').then((module) => ({ Component: module.default })),
 });
 

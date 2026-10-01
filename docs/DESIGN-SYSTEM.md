@@ -1,5 +1,7 @@
 # Khatakit theme and component system
 
+> Update, 1 October 2026: EMI and the basic GST amount calculator have been retired. The active catalogue contains GST late fees, TDS interest, advance tax and presumptive tax. Earlier references below are historical.
+
 The site uses one light theme: warm paper, peach page headers, blue actions and restrained sage/sand supporting surfaces. The homepage, all six calculators, About and the missing-page screen share it. There is no separate colour scheme or stylesheet inside a page component.
 
 ## Where to change the design
@@ -63,7 +65,7 @@ Tool forms use `form-stack`, plus `form-columns` and `form-span` for settings ac
 The new logo is a pair of offset ledger sheets beside a readable serif Khatakit wordmark. It replaces the stylised K/equals lockup. `src/components/brand/Logo.tsx` is the shared header/footer implementation; its colours and type come from theme tokens. The same ledger geometry is supplied in `public/logo-mark.svg` and `public/favicon.svg` for standalone use. Keep those standalone assets in sync if the mark changes.
 
 Headline: **Accounting & tax tools**
-Subtitle: **Free calculators for GST, income tax and loans.**
+Subtitle: **Tools for GST filing costs, TDS and income tax.**
 
 Do not create new logo variations in page components. Use `Logo` and the existing compact footer treatment.
 

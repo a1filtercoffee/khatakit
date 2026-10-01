@@ -11,10 +11,16 @@ import { BUSINESS_EXAMPLE as biz, PROFESSION_EXAMPLE as pro } from './example';
 export default function PresumptiveGuide() {
   const workings = [
     { item: 'Turnover', amount: rupees(biz.input.grossReceipts) },
-    { item: `Cash receipts (${biz.cashSharePercent}% of turnover)`, amount: rupees(biz.input.cashReceipts) },
+    {
+      item: `Cash receipts (${biz.cashSharePercent}% of turnover)`,
+      amount: rupees(biz.input.cashReceipts),
+    },
     { item: 'Limit, as cash is 5% or less', amount: rupees(biz.applicableLimit) },
     { item: `8% of cash receipts`, amount: rupees(biz.cashIncome) },
-    { item: `6% of bank and online receipts (${rupees(biz.digitalReceipts)})`, amount: rupees(biz.digitalIncome) },
+    {
+      item: `6% of bank and online receipts (${rupees(biz.digitalReceipts)})`,
+      amount: rupees(biz.digitalIncome),
+    },
     { item: 'Presumptive income', amount: rupees(biz.presumptiveIncome) },
     { item: 'Tax on income, new regime', amount: rupees(biz.taxOnIncome) },
     { item: 'Health & Education Cess (4%)', amount: rupees(biz.cess) },
@@ -31,8 +37,7 @@ export default function PresumptiveGuide() {
           where={
             <>
               Tax is then worked out on that income with the normal slabs, rebate, surcharge and 4%
-              cess. The salary standard deduction does not apply to business or professional
-              income.
+              cess. The salary standard deduction does not apply to business or professional income.
             </>
           }
         >
@@ -92,12 +97,18 @@ export default function PresumptiveGuide() {
         <p>
           A professional with {rupees(pro.input.grossReceipts)} of receipts, all through the bank,
           has presumptive income of {rupees(pro.presumptiveIncome)}. New regime tax is{' '}
-          {rupees(pro.taxOnIncome)} plus {rupees(pro.cess)} cess, a total of{' '}
-          {rupees(pro.totalTax)}.
+          {rupees(pro.taxOnIncome)} plus {rupees(pro.cess)} cess, a total of {rupees(pro.totalTax)}.
         </p>
       </GuideSection>
 
-      <GuideSection title="Edge cases">
+      <GuideSection id="eligibility" title="Eligibility and edge cases">
+        <p>
+          Business and professional schemes have different eligibility rules. The profession route
+          is restricted to specified professions; choosing “profession” here does not establish that
+          your work qualifies. This calculator assumes you are resident and have already checked the
+          entity, activity and prior scheme-use restrictions with your accountant. It checks the
+          receipts limit and cash share, not complete eligibility.
+        </p>
         <ul>
           <li>
             <strong>The 5% cash condition.</strong> The ₹3 crore and ₹75 lakh limits need cash
@@ -137,8 +148,8 @@ export default function PresumptiveGuide() {
       <GuideSection title="Supported period">
         <p>
           Tax year 2026-27, which runs from 1 April 2026 to 31 March 2027. Section 58(2) of the
-          Income-tax Act, 2025 replaces sections 44AD and 44ADA of the 1961 Act, with the same
-          rates and limits. The Finance Act, 2026 changed only section 58(11)(a)(i).
+          Income-tax Act, 2025 replaces sections 44AD and 44ADA of the 1961 Act, with the same rates
+          and limits. The Finance Act, 2026 changed only section 58(11)(a)(i).
         </p>
         <p>Earlier years fall under the 1961 Act and are not supported.</p>
       </GuideSection>
@@ -164,9 +175,10 @@ export default function PresumptiveGuide() {
 
       <GuideSection title="Related calculators">
         <RelatedTools
-          slugs={['advance-tax', 'gst-calculator']}
+          slugs={['advance-tax']}
           reasons={{
-            'advance-tax': 'Quarterly instalments and old and new regime comparison for other income.',
+            'advance-tax':
+              'Quarterly instalments and old and new regime comparison for other income.',
           }}
         />
       </GuideSection>

@@ -1,5 +1,6 @@
 import type { GstInput, GstReturnType } from './types';
 import type { GstValidation } from './schema';
+import MonthlyDueDate from './MonthlyDueDate';
 import NumberInput from '../../components/ui/NumberInput';
 import DateInput from '../../components/ui/DateInput';
 import Select from '../../components/ui/Select';
@@ -58,6 +59,13 @@ export default function GstForm({ input, errors, onChange }: GstFormProps) {
         error={errors.dueDate}
       />
 
+      {!isAnnual && (
+        <MonthlyDueDate
+          returnType={input.returnType as 'GSTR-1' | 'GSTR-3B'}
+          onUse={(date) => onChange({ ...input, dueDate: date })}
+        />
+      )}
+
       <DateInput
         label="Actual filing date"
         value={input.filingDate}
@@ -99,7 +107,9 @@ export default function GstForm({ input, errors, onChange }: GstFormProps) {
       {(isAnnual || !input.isNilReturn) && (
         <Select
           id="aggregate-turnover"
-          label={isAnnual ? 'Aggregate turnover for the year' : 'Aggregate turnover (previous year)'}
+          label={
+            isAnnual ? 'Aggregate turnover for the year' : 'Aggregate turnover (previous year)'
+          }
           value={input.turnoverSlab}
           onChange={(v) => onChange({ ...input, turnoverSlab: v as GstInput['turnoverSlab'] })}
           options={slabs}

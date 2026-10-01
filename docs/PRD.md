@@ -1,5 +1,7 @@
 # Khatakit - Product Requirements Document
 
+> Update, 1 October 2026: EMI and the basic GST amount calculator have been retired. The active catalogue contains GST late fees, TDS interest, advance tax and presumptive tax. Earlier references below are historical.
+
 ## Overview
 
 Khatakit (khatakit.in) is a privacy-first, 100% browser-based financial utility website targeting Indian freelancers, small business owners, and accountants. All computations happen in JavaScript on the client side. There is no backend, no login, no data storage, and no cookies.

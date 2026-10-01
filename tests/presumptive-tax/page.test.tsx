@@ -41,7 +41,9 @@ describe('presumptive page before any input', () => {
     expect(guide).toContain('₹75 lakh');
     expect(guide).toContain('₹3 crore');
     expect(page.node.querySelector('.calculator-guide a[href*="egazette.gov.in"]')).not.toBeNull();
-    expect(page.node.querySelector('.related-tools a[href="/advance-tax-calculator"]')).not.toBeNull();
+    expect(
+      page.node.querySelector('.related-tools a[href="/advance-tax-calculator"]')
+    ).not.toBeNull();
   });
 });
 
@@ -121,5 +123,12 @@ describe('presumptive results', () => {
     type(page.node, 'gross-receipts', '6000000');
     type(page.node, 'cash-receipts', '600000');
     expect(textOf(results())).toContain('Receipts above the limit');
+    expect(textOf(results())).toContain('no tax estimate is shown');
+    expect(results()?.querySelector('.result-card')).toBeNull();
+    expect(results()?.querySelector('button')).toBeNull();
+    expect(textOf(results())).not.toContain('Advance tax by');
+    type(page.node, 'gross-receipts', '2400000');
+    type(page.node, 'cash-receipts', '0');
+    expect(results()?.querySelector('.result-card')).not.toBeNull();
   });
 });

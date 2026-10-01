@@ -1,7 +1,5 @@
 import type { Faq, PageLoader } from '../seo/types';
 import * as advanceTax from '../tools/advance-tax/faq';
-import * as emi from '../tools/emi/faq';
-import * as gstCalculator from '../tools/gst-calculator/faq';
 import * as gstLateFee from '../tools/gst-late-fee/faq';
 import * as presumptiveTax from '../tools/presumptive-tax/faq';
 import * as tdsInterest from '../tools/tds-interest/faq';
@@ -25,11 +23,12 @@ export interface Tool {
   faq: Faq[];
   /** ISO date the rules were last checked against primary sources (docs/RULES-REVIEW.md). */
   rulesReviewed: string;
+  contentUpdated?: string;
   /** Page module exporting `Component`. */
   load: PageLoader;
   icon: string;
   tags: string[];
-  category: 'gst' | 'income-tax' | 'loans';
+  category: 'gst' | 'income-tax';
   keywords: string[];
   /** What the tool produces, shown at the foot of its homepage tile. */
   output: string;
@@ -49,6 +48,7 @@ export const tools: Tool[] = [
     answer: gstLateFee.ANSWER,
     faq: gstLateFee.FAQ,
     rulesReviewed: '2026-09-14',
+    contentUpdated: '2026-10-01',
     load: () => import('../tools/gst-late-fee/GstLateFee'),
     icon: 'receipt',
     category: 'gst',
@@ -69,48 +69,20 @@ export const tools: Tool[] = [
     tags: ['GST', 'Penalty', 'Interest'],
   },
   {
-    name: 'GST Calculator',
-    slug: 'gst-calculator',
-    path: '/gst-calculator',
-    description:
-      'Add or remove GST on one amount or a whole bill with lines at different rates. CGST, SGST or IGST to the paisa, with any round-off shown.',
-    summary: 'Add or remove GST on one amount or a whole bill with lines at different rates.',
-    seoTitle: 'GST Calculator - Add or Remove GST, Multiple Rates - Khatakit',
-    seoDescription:
-      'Add or remove GST on one amount or a whole bill with lines at 5%, 18% and 40%. CGST, SGST or IGST to the paisa, round-off shown, CSV download.',
-    answer: gstCalculator.ANSWER,
-    faq: gstCalculator.FAQ,
-    rulesReviewed: '2026-09-14',
-    load: () => import('../tools/gst-calculator/GstCalculator'),
-    icon: 'calculator',
-    category: 'gst',
-    keywords: [
-      'reverse gst',
-      'inclusive',
-      'exclusive',
-      'cgst',
-      'sgst',
-      'igst',
-      'multiple items',
-      'invoice',
-      'goods and services tax',
-    ],
-    output: 'CGST, SGST or IGST by line and rate',
-    tags: ['GST', 'Inclusive', 'Exclusive'],
-  },
-  {
     name: 'Advance Tax Calculator',
     slug: 'advance-tax',
     path: '/advance-tax-calculator',
     description:
       'Compute quarterly advance tax instalments for tax year 2026-27. Compare old vs new regime side by side, with slab-wise workings.',
-    summary: 'Plan quarterly advance tax for tax year 2026-27 and compare the old and new regimes.',
+    summary:
+      'Compare regimes, record advance-tax payments and find the remaining amount for the next deadline.',
     seoTitle: 'Advance Tax Calculator 2026-27 - Old & New Regime - Khatakit',
     seoDescription:
-      'Calculate advance tax instalments for tax year 2026-27 (FY 2026-27). Old vs new regime, rebate near ₹12 lakh, due dates and CSV download.',
+      'Calculate advance tax instalments for tax year 2026-27 (FY 2026-27). Compare old vs new regime, subtract payments already made and plan the next instalment.',
     answer: advanceTax.ANSWER,
     faq: advanceTax.FAQ,
     rulesReviewed: '2026-09-14',
+    contentUpdated: '2026-10-01',
     load: () => import('../tools/advance-tax/AdvanceTax'),
     icon: 'calendar',
     category: 'income-tax',
@@ -123,28 +95,8 @@ export const tools: Tool[] = [
       'fy 2026-27',
       'section 408',
     ],
-    output: 'Instalments by due date',
+    output: 'Remaining payment and annual targets',
     tags: ['Income Tax', 'Quarterly', 'Old vs New'],
-  },
-  {
-    name: 'EMI Calculator',
-    slug: 'emi',
-    path: '/emi-calculator',
-    description:
-      'Calculate loan EMI using the reducing balance method. Year-wise amortisation, principal and interest chart, and monthly schedule download.',
-    summary: 'Calculate the monthly EMI, total interest and repayment schedule for a loan.',
-    seoTitle: 'EMI Calculator - Loan EMI with Amortization Schedule',
-    seoDescription:
-      'Calculate loan EMI with the reducing balance method. Matches the RBI Key Facts Statement example, with an amortisation schedule and CSV download.',
-    answer: emi.ANSWER,
-    faq: emi.FAQ,
-    rulesReviewed: '2026-09-14',
-    load: () => import('../tools/emi/EmiCalculator'),
-    icon: 'banknotes',
-    category: 'loans',
-    keywords: ['loan repayment', 'monthly payment', 'home loan', 'car loan', 'amortisation'],
-    output: 'Monthly EMI and repayment schedule',
-    tags: ['Loan', 'EMI', 'Amortization'],
   },
   {
     name: 'Presumptive Tax Calculator',
@@ -159,6 +111,7 @@ export const tools: Tool[] = [
     answer: presumptiveTax.ANSWER,
     faq: presumptiveTax.FAQ,
     rulesReviewed: '2026-09-14',
+    contentUpdated: '2026-10-01',
     load: () => import('../tools/presumptive-tax/PresumptiveTax'),
     icon: 'briefcase',
     category: 'income-tax',
@@ -179,10 +132,21 @@ export const tools: Tool[] = [
     answer: tdsInterest.ANSWER,
     faq: tdsInterest.FAQ,
     rulesReviewed: '2026-09-14',
+    contentUpdated: '2026-10-01',
     load: () => import('../tools/tds-interest/TdsInterest'),
     icon: 'clock',
     category: 'income-tax',
-    keywords: ['tds', '201(1a)', 'section 398', 'late payment', 'late deduction', 'traces', 'challan', 'bulk', 'interest'],
+    keywords: [
+      'tds',
+      '201(1a)',
+      'section 398',
+      'late payment',
+      'late deduction',
+      'traces',
+      'challan',
+      'bulk',
+      'interest',
+    ],
     output: 'Interest with due dates and months counted',
     tags: ['TDS', 'Interest', 'Bulk'],
   },
@@ -201,16 +165,13 @@ export const toolCategories = [
     icon: 'briefcase',
     description: 'Plan tax payments for your income or business.',
   },
-  {
-    id: 'loans',
-    label: 'Loans',
-    icon: 'banknotes',
-    description: 'Understand monthly payments and the cost of borrowing.',
-  },
 ] as const;
 
 /** The most recent rules review across all calculators. */
-export const latestRulesReview = tools.map((tool) => tool.rulesReviewed).sort().at(-1)!;
+export const latestRulesReview = tools
+  .map((tool) => tool.rulesReviewed)
+  .sort()
+  .at(-1)!;
 
 export function matchesTool(tool: Tool, query: string): boolean {
   const normalise = (value: string) =>

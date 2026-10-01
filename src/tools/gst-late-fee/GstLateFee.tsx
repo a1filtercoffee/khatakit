@@ -5,6 +5,7 @@ import { calculateGstPenalty } from './calc';
 import { validateGstInput, type GstField, type GstValidation } from './schema';
 import type { GstInput } from './types';
 import GstForm from './GstForm';
+import { WORKED_EXAMPLE } from './example';
 import GstResults from './GstResults';
 import GstGuide from './GstGuide';
 import { toInputDateString } from '../../lib/utils/date';
@@ -64,7 +65,21 @@ export function Component() {
     <CalculatorPage
       slug="gst-late-fee"
       formTitle="Return details"
-      form={<GstForm input={input} errors={validation.errors} onChange={setInput} />}
+      form={
+        <>
+          <GstForm input={input} errors={validation.errors} onChange={setInput} />
+          <button
+            className="button button-secondary"
+            type="button"
+            onClick={() => setInput({ ...WORKED_EXAMPLE.input })}
+          >
+            Load sample return
+          </button>
+          <p className="field-help">
+            Sample: GSTR-3B filed 30 days late, with ₹1 lakh paid in cash.
+          </p>
+        </>
+      }
       hasResult={result !== null && validation.input !== null}
       caveat="Check the amount on the GST portal before paying."
       guide={<GstGuide />}

@@ -1,5 +1,7 @@
 # Calculation Rules Review
 
+> Update, 1 October 2026: EMI and the basic GST amount calculator have been retired. The active catalogue contains GST late fees, TDS interest, advance tax and presumptive tax. Earlier references below are historical.
+
 Reviewed on 14 September 2026 against primary sources.
 Every value below is tested in `tests/<calculator>/calc.test.ts`.
 

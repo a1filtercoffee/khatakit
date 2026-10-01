@@ -48,6 +48,7 @@ function computeSchedule(netTaxPayable: number): QuarterlyInstallment[] {
     return {
       quarter: q.label,
       dueDate: q.dueDate,
+      dueDateISO: q.dueDateISO,
       cumulativePercent: q.cumulativePercent,
       cumulativeAmount,
       installmentAmount: cumulativeAmount - previous,

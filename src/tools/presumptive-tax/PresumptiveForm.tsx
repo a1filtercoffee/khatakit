@@ -14,6 +14,11 @@ export default function PresumptiveForm({ input, errors, onChange }: Presumptive
   const business = input.scheme === '44AD';
   return (
     <div className="form-stack">
+      <p className="field-help">
+        This estimates tax after you have established eligibility. Your business or profession,
+        entity type and residency also matter.{' '}
+        <a href="#eligibility">Check who can use each scheme</a> before choosing.
+      </p>
       <RadioGroup
         label="Scheme"
         value={input.scheme}

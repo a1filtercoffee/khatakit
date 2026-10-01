@@ -32,7 +32,7 @@ export default function RelatedTools({ slugs, reasons = {} }: RelatedToolsProps)
           <ToolIcon name="grid" />
           <span>
             <strong>All calculators</strong>
-            <small>GST, income tax and loan tools.</small>
+            <small>GST filing costs, TDS and income tax.</small>
           </span>
         </Link>
       </li>

@@ -66,9 +66,14 @@ export const CESS_RATE = 4;
 export const ADVANCE_TAX_THRESHOLD = 10000;
 
 // Section 408(1): cumulative instalments for tax year 2026-27.
-export const ADVANCE_TAX_SCHEDULE: readonly { label: string; dueDate: string; cumulativePercent: number }[] = [
-  { label: 'Q1', dueDate: '15 June 2026', cumulativePercent: 15 },
-  { label: 'Q2', dueDate: '15 September 2026', cumulativePercent: 45 },
-  { label: 'Q3', dueDate: '15 December 2026', cumulativePercent: 75 },
-  { label: 'Q4', dueDate: '15 March 2027', cumulativePercent: 100 },
+export const ADVANCE_TAX_SCHEDULE: readonly {
+  label: string;
+  dueDate: string;
+  dueDateISO: string;
+  cumulativePercent: number;
+}[] = [
+  { label: 'Q1', dueDate: '15 June 2026', dueDateISO: '2026-06-15', cumulativePercent: 15 },
+  { label: 'Q2', dueDate: '15 September 2026', dueDateISO: '2026-09-15', cumulativePercent: 45 },
+  { label: 'Q3', dueDate: '15 December 2026', dueDateISO: '2026-12-15', cumulativePercent: 75 },
+  { label: 'Q4', dueDate: '15 March 2027', dueDateISO: '2027-03-15', cumulativePercent: 100 },
 ];

@@ -63,7 +63,9 @@ describe('results', () => {
     const interest = screen.getByRole('table', { name: 'Interest working' });
     expect(interest).toHaveTextContent('21 May 2026');
     expect(interest).toHaveTextContent('19 Jun 2026');
-    expect(output).toHaveTextContent('₹ 1,00,000 × 18% × 30 ÷ 365 = ₹ 1,479.45, rounded to ₹ 1,479');
+    expect(output).toHaveTextContent(
+      '₹ 1,00,000 × 18% × 30 ÷ 365 = ₹ 1,479.45, rounded to ₹ 1,479'
+    );
     expect(output).toHaveTextContent('₹ 2,979');
     expect(output).toHaveTextContent('20 May 2029');
   });
@@ -72,18 +74,16 @@ describe('results', () => {
     renderPage();
     fillReturn();
     for (const name of ['Dates used', 'Late fee per head', 'Interest working']) {
-      expect(within(screen.getByRole('table', { name })).getAllByRole('columnheader')).toHaveLength(2);
+      expect(within(screen.getByRole('table', { name })).getAllByRole('columnheader')).toHaveLength(
+        2
+      );
     }
     // The interest calculation is a wrapping formula line, not a table cell.
     const formula = results().querySelector('.formula')!;
     expect(formula.closest('table')).toBeNull();
-    expect(Array.from(formula.querySelectorAll('.formula-term'), (term) => term.textContent)).toEqual([
-      '₹ 1,00,000 ×',
-      '18% ×',
-      '30 ÷ 365',
-      '= ₹ 1,479.45,',
-      'rounded to ₹ 1,479',
-    ]);
+    expect(
+      Array.from(formula.querySelectorAll('.formula-term'), (term) => term.textContent)
+    ).toEqual(['₹ 1,00,000 ×', '18% ×', '30 ÷ 365', '= ₹ 1,479.45,', 'rounded to ₹ 1,479']);
   });
 
   it('explains the cap and no interest on a nil return', () => {
@@ -111,4 +111,15 @@ describe('results', () => {
     expect(results()).toHaveTextContent('Return can no longer be filed');
     expect(results()).toHaveTextContent('20 Jan 2025');
   });
+});
+
+it('suggests a monthly due date while allowing the portal date to override it', () => {
+  renderPage();
+  change('Return month', '2026-04');
+  fireEvent.click(screen.getByRole('button', { name: 'Use this due date' }));
+  expect(screen.getByLabelText('Due date')).toHaveValue('2026-05-20');
+  change('Due date', '2026-05-25');
+  expect(screen.getByLabelText('Due date')).toHaveValue('2026-05-25');
+  fireEvent.click(screen.getByRole('button', { name: 'Load sample return' }));
+  expect(results()).toHaveTextContent('₹ 2,979');
 });

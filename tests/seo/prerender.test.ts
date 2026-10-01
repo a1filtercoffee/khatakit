@@ -15,9 +15,7 @@ const template =
 const headings: Record<string, string> = {
   '/': 'Accounting &tax tools',
   '/gst-late-fee-interest-calculator': 'GST Late Fee & Interest Calculator',
-  '/gst-calculator': 'GST Calculator',
   '/advance-tax-calculator': 'Advance Tax Calculator',
-  '/emi-calculator': 'EMI Calculator',
   '/presumptive-income-calculator': 'Presumptive Tax Calculator',
   '/tds-interest-calculator': 'TDS Interest Calculator',
   '/about': 'About Khatakit',
@@ -107,7 +105,7 @@ describe('prerendered HTML', () => {
       ).toEqual(visible);
 
       expect(jsonLdOfType(document, 'WebApplication')).toMatchObject({
-        dateModified: tool.rulesReviewed,
+        dateModified: tool.contentUpdated ?? tool.rulesReviewed,
         publisher: PUBLISHER,
       });
       expect(text(document.querySelector('.empty-state'))).not.toBeUndefined();

@@ -26,7 +26,7 @@ export function Component() {
       period={TAX_YEAR_LABEL}
       formTitle={form.scheme === '44ADA' ? 'Professional details' : 'Business details'}
       form={<PresumptiveForm input={form} errors={errors} onChange={setForm} />}
-      hasResult={result !== null && Object.keys(errors).length === 0}
+      hasResult={result !== null && result.isWithinLimit && Object.keys(errors).length === 0}
       caveat="An estimate under section 58(2) for tax year 2026-27."
       guide={<PresumptiveGuide />}
     >
