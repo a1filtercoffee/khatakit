@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useTabDraft } from '../../lib/drafts/use-tab-draft';
+import { presumptiveDraft } from '../../lib/drafts/schemas';
+import { useMemo } from 'react';
 import CalculatorPage from '../../components/layout/CalculatorPage';
 import { TAX_YEAR_LABEL } from '../../lib/constants/tax-slabs';
 import { calculatePresumptive } from './calc';
@@ -16,7 +18,7 @@ const defaultInput: PresumptiveInput = {
 };
 
 export function Component() {
-  const [form, setForm] = useState<PresumptiveInput>(defaultInput);
+  const [form, setForm] = useTabDraft<PresumptiveInput>('presumptive-tax', defaultInput, presumptiveDraft);
   const { input, errors } = useMemo(() => validatePresumptive(form), [form]);
   const result = useMemo(() => (input ? calculatePresumptive(input) : null), [input]);
 

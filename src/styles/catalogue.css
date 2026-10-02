@@ -696,3 +696,21 @@ button {
     transform: none;
   }
 }
+
+.tool-switcher { position: relative; }
+.tool-switcher summary { display: flex; gap: 6px; align-items: center; min-height: 44px; padding: 8px 0; color: var(--ink); font-weight: 650; cursor: pointer; list-style: none; }
+.tool-switcher summary::-webkit-details-marker { display: none; }
+.tool-switcher summary:focus-visible { outline: 3px solid var(--action); outline-offset: 4px; }
+.tool-switcher-links { position: absolute; top: 100%; right: 0; width: min(280px, calc(100vw - 32px)); padding: 8px; background: var(--surface); border: 1px solid var(--blue-border); border-radius: 10px; box-shadow: 0 8px 30px #15344a20; z-index: 40; }
+.site-header nav .tool-switcher-links a { display: flex; align-items: center; min-height: 44px; padding: 10px 12px; border: 0; border-radius: 6px; }
+.tool-switcher-links a:hover { background: var(--action-tint); }
+.home-quick-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
+.home-quick-tools a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 10px 12px; border-radius: 8px; background: var(--paper); color: var(--action); font-size: 14px; font-weight: 650; text-decoration: none; }
+.home-quick-tools a:hover { background: var(--surface); }
+.workbench-intro { margin-top: 20px; padding-block: 24px; }
+@media (max-width: 700px) {
+  .home-quick-tools { grid-template-columns: 1fr; margin-top: 12px; }
+  .workbench-intro { padding: 20px; }
+  .workbench-intro h1 { font-size: 32px; }
+  .workbench-description { display: none; }
+}

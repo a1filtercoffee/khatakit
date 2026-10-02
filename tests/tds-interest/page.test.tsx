@@ -72,13 +72,13 @@ describe('TDS interest page', () => {
     expect(node.querySelector('.form-columns')).toBeNull();
   });
 
-  it('offers a jump to the result only once there is one', () => {
-    expect(node.querySelector('.result-jump')).toBeNull();
+  it('keeps section navigation available and identifies a calculated result', () => {
+    expect(node.querySelector('.calculator-toolbar a[href="#results"]')?.textContent).toBe('Result');
     setValue(node.querySelector('#tds-amount')!, '25000');
-    expect(node.querySelector('.result-jump')).toBeNull();
+    expect(node.querySelector('.calculator-toolbar a[href="#results"]')?.textContent).toBe('Result');
     setValue(node.querySelector('#date-deducted')!, '2026-03-20');
     setValue(node.querySelector('#date-deposited')!, '2026-05-05');
-    expect(node.querySelector('.result-jump')?.textContent).toContain('See result');
+    expect(node.querySelector('.calculator-toolbar a[href="#results"]')?.textContent).toContain('See result');
   });
 
   it('calculates a single case with both month methods', () => {

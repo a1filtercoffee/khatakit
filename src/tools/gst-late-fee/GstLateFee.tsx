@@ -1,6 +1,8 @@
+import { useTabDraft } from '../../lib/drafts/use-tab-draft';
+import { gstDraft, booleanDraft } from '../../lib/drafts/schemas';
 import { EmptyState } from '../../components/ui/Surface';
 import CalculatorPage from '../../components/layout/CalculatorPage';
-import { useState, useMemo, useSyncExternalStore } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { calculateGstPenalty } from './calc';
 import { validateGstInput, type GstField, type GstValidation } from './schema';
 import type { GstInput } from './types';
@@ -42,8 +44,8 @@ const readToday = () => toInputDateString(new Date());
 const noDateOnServer = () => '';
 
 export function Component() {
-  const [stored, setStored] = useState<GstInput>(defaultInput);
-  const [filingDateEdited, setFilingDateEdited] = useState(false);
+  const [stored, setStored] = useTabDraft<GstInput>('gst-late-fee', defaultInput, gstDraft);
+  const [filingDateEdited, setFilingDateEdited] = useTabDraft('gst-late-fee:filing-edited', false, booleanDraft);
   const today = useSyncExternalStore(subscribeToNothing, readToday, noDateOnServer);
   const input = useMemo(
     () => (filingDateEdited ? stored : { ...stored, filingDate: today }),

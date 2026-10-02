@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useTabDraft } from '../../lib/drafts/use-tab-draft';
+import { advanceDraft } from '../../lib/drafts/schemas';
+import { useMemo } from 'react';
 import CalculatorPage from '../../components/layout/CalculatorPage';
 import { TAX_YEAR_LABEL } from '../../lib/constants/tax-slabs';
 import AdvanceTaxForm from './AdvanceTaxForm';
@@ -18,7 +20,7 @@ const defaultForm: FormValues = {
 };
 
 export function Component() {
-  const [form, setForm] = useState<FormValues>(defaultForm);
+  const [form, setForm] = useTabDraft<FormValues>('advance-tax', defaultForm, advanceDraft);
   const { input, errors } = useMemo(() => validateAdvanceTax(form), [form]);
   const result = useMemo(() => (input ? calculateAdvanceTax(input) : null), [input]);
 

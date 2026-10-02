@@ -35,46 +35,49 @@ export default function Home() {
                 <br />
                 Calculations run in your browser.
               </p>
+              <nav className="home-quick-tools" aria-label="Choose a calculator">
+                {tools.map((tool) => <Link key={tool.slug} to={tool.path}>{tool.name}<span aria-hidden="true"> →</span></Link>)}
+              </nav>
             </div>
             <div
               className="hero-art"
-              aria-label="Illustrative GST calculation at an example rate of 18 percent"
+              aria-label="Illustrative TDS interest calculation for a late deposit"
             >
               <div className="ledger-sheet">
                 <div className="ledger-heading">
                   <ToolIcon name="receipt" />
-                  <span>GST WORKSHEET</span>
+                  <span>TDS WORKSHEET</span>
                   <span className="ledger-dots" aria-hidden="true">
                     •••
                   </span>
                 </div>
                 <div className="ledger-subheading">
-                  GST breakdown <span>Example</span>
+                  Late deposit <span>Example</span>
                 </div>
                 <dl>
                   <div>
-                    <dt>Amount before tax</dt>
+                    <dt>TDS amount</dt>
                     <dd>₹10,000</dd>
                   </div>
                   <div>
-                    <dt>Example GST rate</dt>
-                    <dd>18%</dd>
+                    <dt>Monthly interest</dt>
+                    <dd>1.5%</dd>
                   </div>
                   <div>
-                    <dt>GST amount</dt>
-                    <dd>₹1,800</dd>
+                    <dt>Months counted</dt>
+                    <dd>2</dd>
                   </div>
                 </dl>
                 <div className="ledger-total">
-                  <span>Total, including GST</span>
+                  <span>Interest on late deposit</span>
                   <strong>
-                    ₹11,800<span>.00</span>
+                    ₹300
                   </strong>
                 </div>
-                <p>₹10,000 + (₹10,000 × 18%)</p>
+                <p>₹10,000 × 1.5% × 2 months</p>
               </div>
               <span className="art-sticker">
-                <span aria-hidden="true">✓</span> Calculation shown
+                <span aria-hidden="true">✓</span> 10 May – 20 June 2026
               </span>
               <svg className="art-scribble" viewBox="0 0 100 80" fill="none" aria-hidden="true">
                 <path
@@ -108,7 +111,7 @@ export default function Home() {
                     setQuery('');
                   }
                 }}
-                placeholder="Find a tool: GST, income tax, EMI…"
+                placeholder="Find a tool: GST late fees, TDS…"
                 autoComplete="off"
                 spellCheck={false}
               />

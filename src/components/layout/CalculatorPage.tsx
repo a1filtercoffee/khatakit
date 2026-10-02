@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { toolCategories, tools } from '../../data/tools';
 import CalculatorFaq from '../calculator/CalculatorFaq';
-import ResultJump from '../calculator/ResultJump';
+import DraftControls from '../calculator/DraftControls';
 import { Panel } from '../ui/Surface';
 import PageShell from './PageShell';
 
@@ -48,13 +48,20 @@ export default function CalculatorPage({
       period={period}
       reviewed={tool.rulesReviewed}
     >
+      <div className="calculator-toolbar">
+        <nav aria-label="Calculator sections">
+          <a href="#inputs">Inputs</a>
+          <a href="#results">{hasResult ? 'See result' : 'Result'}</a>
+          <a href="#guide" onClick={() => document.getElementById('guide')?.setAttribute('open', '')}>Guide &amp; sources</a>
+        </nav>
+        <DraftControls key={slug} tool={slug} />
+      </div>
       <div className={`calculator-layout calculator-layout-${layout}`}>
-        <aside className="calculator-inputs">
+        <aside id="inputs" tabIndex={-1} className="calculator-inputs">
           <Panel title={formTitle} icon={tool.icon}>
             {form}
             <p className="local-note">Calculations stay in your browser.</p>
           </Panel>
-          {hasResult && <ResultJump target={RESULTS_ID} />}
         </aside>
         <div className="calculator-output">
           <section
@@ -67,15 +74,19 @@ export default function CalculatorPage({
           </section>
           {hasResult && (
             <p className="result-caveat">
-              {caveat} <a href="#guide">Assumptions and sources</a>
+              {caveat} <a href="#guide" onClick={() => document.getElementById('guide')?.setAttribute('open', '')}>Assumptions and sources</a>
             </p>
           )}
         </div>
       </div>
-      <div id="guide" className="guide-anchor">
+      <details id="guide" className="guide-disclosure">
+        <summary>How this calculation works <span>Examples, assumptions and sources</span></summary>
         {guide}
-      </div>
-      <CalculatorFaq items={tool.faq} />
+      </details>
+      <details className="guide-disclosure">
+        <summary>Common questions</summary>
+        <CalculatorFaq items={tool.faq} />
+      </details>
     </PageShell>
   );
 }

@@ -9,7 +9,7 @@ export default function ValidationSummary({
   const messages = Object.values(errors).filter((message): message is string => Boolean(message));
   if (messages.length === 0) return null;
   return (
-    <Notice
+    <div role="status" aria-live="polite"><Notice
       title={messages.length === 1 ? 'Check the highlighted field' : 'Check the highlighted fields'}
       tone="warning"
     >
@@ -18,6 +18,6 @@ export default function ValidationSummary({
           <li key={message}>{message}</li>
         ))}
       </ul>
-    </Notice>
+    </Notice></div>
   );
 }

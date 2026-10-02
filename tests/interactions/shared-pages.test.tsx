@@ -32,14 +32,14 @@ it('accepts complete GST dates from an empty form and reveals results in the sha
   );
   const output = () => node.querySelector('.calculator-output')!;
   expect(node.querySelector('.empty-state')).not.toBeNull();
-  expect(node.querySelector('.result-jump')).toBeNull();
+  expect(node.querySelector('.calculator-toolbar a[href="#results"]')?.textContent).toBe('Result');
   expect(node.querySelector('.result-caveat')).toBeNull();
   setValue(node.querySelector('#due-date')!, '2026-05-20');
   setValue(node.querySelector('#actual-filing-date')!, '2026-05-30');
   expect(node.querySelector('.empty-state')).toBeNull();
   expect(output().textContent).toContain('Late fee and interest');
   expect(node.querySelector('#actual-filing-date')!.getAttribute('min')).toBe('2026-05-20');
-  expect(node.querySelector('.result-jump')?.getAttribute('href')).toBe('#results');
+  expect(node.querySelector('.calculator-toolbar a[href="#results"]')?.getAttribute('href')).toBe('#results');
   expect(node.querySelector('#results')?.closest('.calculator-output')).toBe(output());
   expect(node.querySelector('.result-caveat a')?.getAttribute('href')).toBe('#guide');
 });

@@ -18,6 +18,7 @@ interface Props {
   onAsOfChange: (date: string) => void;
   today: string;
   single: SingleInput;
+  amountError?: string;
   onSingleChange: (input: SingleInput) => void;
   /** Import controls shown in bulk mode. */
   bulkImport: ReactNode;
@@ -52,7 +53,8 @@ export default function TdsForm(props: Props) {
             id="tds-amount"
             label="TDS amount"
             prefix="₹"
-            min={0}
+            reportInvalid
+            error={props.amountError}
             value={single.amount}
             onChange={(amount) => onSingleChange({ ...single, amount })}
             helpText="Interest is worked out on this amount rounded down to a multiple of ₹100."

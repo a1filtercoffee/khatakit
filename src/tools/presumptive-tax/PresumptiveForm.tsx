@@ -17,7 +17,7 @@ export default function PresumptiveForm({ input, errors, onChange }: Presumptive
       <p className="field-help">
         This estimates tax after you have established eligibility. Your business or profession,
         entity type and residency also matter.{' '}
-        <a href="#eligibility">Check who can use each scheme</a> before choosing.
+        <a href="#eligibility" onClick={() => document.getElementById('guide')?.setAttribute('open', '')}>Check who can use each scheme</a> before choosing.
       </p>
       <RadioGroup
         label="Scheme"

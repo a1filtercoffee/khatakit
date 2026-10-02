@@ -1,4 +1,6 @@
-import { useRef, useState, useSyncExternalStore } from 'react';
+import { useTabDraft } from '../../lib/drafts/use-tab-draft';
+import { enteredDateDraft, paymentsDraft } from '../../lib/drafts/schemas';
+import { useRef, useSyncExternalStore } from 'react';
 import DateInput from '../../components/ui/DateInput';
 import NumberInput from '../../components/ui/NumberInput';
 import ResultCard from '../../components/calculator/ResultCard';
@@ -14,10 +16,12 @@ const subscribe = () => () => {};
 const today = () => toInputDateString(new Date());
 const noDate = () => '';
 
+const INITIAL_PAYMENTS: Payment[] = [];
+
 export default function PaymentPlanner({ schedule }: { schedule: QuarterlyInstallment[] }) {
   const browserDate = useSyncExternalStore(subscribe, today, noDate);
-  const [enteredDate, setDate] = useState<string | null>(null);
-  const [payments, setPayments] = useState<Payment[]>([]);
+  const [enteredDate, setDate] = useTabDraft<string | null>('advance-tax:planning-date', null, enteredDateDraft);
+  const [payments, setPayments] = useTabDraft<Payment[]>('advance-tax:payments', INITIAL_PAYMENTS, paymentsDraft);
   const nextId = useRef(1);
   const date = enteredDate ?? (browserDate ? [YEAR_START, browserDate, YEAR_END].sort()[1] : '');
   const errors = paymentErrors(date, payments);
@@ -75,7 +79,7 @@ export default function PaymentPlanner({ schedule }: { schedule: QuarterlyInstal
       <button
         type="button"
         className="button button-secondary"
-        onClick={() => setPayments((rows) => [...rows, { id: nextId.current++, date, amount: 0 }])}
+        onClick={() => setPayments((rows) => [...rows, { id: Math.max(nextId.current++, ...rows.map((row) => row.id + 1)), date, amount: 0 }])}
       >
         Add payment
       </button>

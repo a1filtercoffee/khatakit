@@ -1,3 +1,5 @@
+import { useTabDraft } from '../../lib/drafts/use-tab-draft';
+import { tdsSingleDraft, tdsRowsDraft, tdsModeDraft, deductorDraft, enteredDateDraft } from '../../lib/drafts/schemas';
 import { useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import CalculatorPage from '../../components/layout/CalculatorPage';
 import { EmptyState, Notice } from '../../components/ui/Surface';
@@ -21,15 +23,17 @@ const subscribeToNothing = () => () => {};
 const readToday = () => toInputDateString(new Date());
 const noDateOnServer = () => '';
 
+const INITIAL_ROWS = [emptyDraft('1')];
+
 type ImportStatus = { tone: 'success' | 'error'; message: string } | null;
 
 export function Component() {
   const today = useSyncExternalStore(subscribeToNothing, readToday, noDateOnServer);
-  const [mode, setMode] = useState<Mode>('single');
-  const [deductorType, setDeductorType] = useState<DeductorType>('non-government');
-  const [asOfEntered, setAsOfEntered] = useState<string | null>(null);
-  const [single, setSingle] = useState<SingleInput>(EMPTY_SINGLE);
-  const [drafts, setDrafts] = useState<DraftRow[]>([emptyDraft('1')]);
+  const [mode, setMode] = useTabDraft<Mode>('tds-interest:mode', 'single', tdsModeDraft);
+  const [deductorType, setDeductorType] = useTabDraft<DeductorType>('tds-interest:deductor', 'non-government', deductorDraft);
+  const [asOfEntered, setAsOfEntered] = useTabDraft<string | null>('tds-interest:as-of', null, enteredDateDraft);
+  const [single, setSingle] = useTabDraft<SingleInput>('tds-interest:single', EMPTY_SINGLE, tdsSingleDraft);
+  const [drafts, setDrafts] = useTabDraft<DraftRow[]>('tds-interest:rows', INITIAL_ROWS, tdsRowsDraft);
   const [importStatus, setImportStatus] = useState<ImportStatus>(null);
   const nextId = useRef(2);
 
@@ -49,7 +53,11 @@ export function Component() {
     [today, drafts, options]
   );
 
-  const makeId = () => String(nextId.current++);
+  const makeId = () => {
+    const ids = new Set(drafts.map((row) => row.id));
+    while (ids.has(String(nextId.current))) nextId.current++;
+    return String(nextId.current++);
+  };
 
   function addRow() {
     setDrafts((current) =>
@@ -96,8 +104,10 @@ export function Component() {
     });
   }
 
+  const amountError = !Number.isFinite(single.amount) ? 'Enter a valid TDS amount.' : single.amount < 0 ? 'TDS amount cannot be negative.' : undefined;
+
   const singleContent =
-    singleOutcome === null ? (
+    amountError ? <Notice title="Check the TDS amount" tone="warning">{amountError}</Notice> : singleOutcome === null ? (
       <EmptyState>
         Enter the TDS amount and the date tax was deducted to see the interest, the due date and
         each month counted.
@@ -133,6 +143,7 @@ export function Component() {
           onAsOfChange={setAsOfEntered}
           today={today}
           single={single}
+          amountError={amountError}
           onSingleChange={setSingle}
           bulkImport={
             <BulkImport

@@ -882,3 +882,34 @@ body {
     transition: none;
   }
 }
+
+/* Short paths between the task, answer and supporting detail. */
+.calculator-toolbar { position: sticky; top: 0; z-index: 20; margin: 0 0 20px; padding: 10px 16px; border: 1px solid var(--blue-border); border-radius: 10px; background: var(--paper); box-shadow: 0 3px 12px #15344a0a; }
+.calculator-toolbar nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.calculator-toolbar nav a { display: flex; align-items: center; min-height: 44px; padding: 8px 12px; border-radius: 6px; color: var(--action); font-size: 14px; font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }
+.calculator-toolbar nav a:hover { background: var(--action-tint); }
+.draft-controls { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+.draft-controls p { margin: 4px 0; }
+.draft-controls button { flex-shrink: 0; min-height: 44px; color: var(--action); text-decoration: underline; font-size: 13px; }
+#inputs, #results, #guide { scroll-margin-top: 136px; }
+.guide-disclosure { margin-top: 24px; padding: 16px 20px; border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); }
+.guide-disclosure > summary { cursor: pointer; min-height: 44px; font-size: 17px; font-weight: 700; }
+.guide-disclosure > summary span { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; color: var(--muted); }
+.guide-trust a { text-decoration: underline; text-underline-offset: 3px; }
+.page-masthead { margin-bottom: 20px; }
+@media (max-width: 700px) {
+  .page-masthead { padding: 20px; gap: 12px; }
+  .page-masthead h1 { font-size: 28px; }
+  .page-description { font-size: 14px; }
+  .calculator-toolbar { padding: 4px 10px; }
+  .calculator-toolbar nav { gap: 0; justify-content: space-between; }
+  .calculator-toolbar nav a { padding-inline: 6px; font-size: 13px; }
+  .draft-controls p { max-width: 210px; }
+  .field-help, .result-caveat { font-size: 14px; }
+}
+
+@media (max-width: 640px) {
+  .calculator-inputs .form-stack { gap: 14px; }
+  .calculator-inputs .panel { padding: 18px; }
+  .calculator-inputs .panel-title { margin-bottom: 16px; }
+}
