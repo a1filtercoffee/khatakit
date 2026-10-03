@@ -891,7 +891,7 @@ body {
 .draft-controls { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
 .draft-controls p { margin: 4px 0; }
 .draft-controls button { flex-shrink: 0; min-height: 44px; color: var(--action); text-decoration: underline; font-size: 13px; }
-#inputs, #results, #guide { scroll-margin-top: 136px; }
+#inputs, #results, #guide { scroll-margin-top: var(--calculator-scroll-offset, 12rem); }
 .guide-disclosure { margin-top: 24px; padding: 16px 20px; border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); }
 .guide-disclosure > summary { cursor: pointer; min-height: 44px; font-size: 17px; font-weight: 700; }
 .guide-disclosure > summary span { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; color: var(--muted); }

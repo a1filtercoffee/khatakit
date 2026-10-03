@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { toolCategories, tools } from '../../data/tools';
 import CalculatorFaq from '../calculator/CalculatorFaq';
 import DraftControls from '../calculator/DraftControls';
@@ -35,6 +35,22 @@ export default function CalculatorPage({
   layout = 'split',
   guide,
 }: Props) {
+  const toolbarRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const toolbar = toolbarRef.current;
+    const shell = toolbar?.closest<HTMLElement>('.page-shell');
+    if (!toolbar || !shell) return;
+    const updateOffset = () => {
+      shell.style.setProperty('--calculator-scroll-offset', `${toolbar.getBoundingClientRect().height + 16}px`);
+    };
+    updateOffset();
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(updateOffset);
+    observer?.observe(toolbar);
+    return () => {
+      observer?.disconnect();
+      shell.style.removeProperty('--calculator-scroll-offset');
+    };
+  }, []);
   const tool = tools.find((item) => item.slug === slug);
   if (!tool) throw new Error(`No catalogue entry for calculator "${slug}"`);
   const category = toolCategories.find((item) => item.id === tool.category)?.label;
@@ -48,7 +64,7 @@ export default function CalculatorPage({
       period={period}
       reviewed={tool.rulesReviewed}
     >
-      <div className="calculator-toolbar">
+      <div className="calculator-toolbar" ref={toolbarRef}>
         <nav aria-label="Calculator sections">
           <a href="#inputs">Inputs</a>
           <a href="#results">{hasResult ? 'See result' : 'Result'}</a>
