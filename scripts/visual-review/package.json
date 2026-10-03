@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "check": "playwright test",
+    "baseline": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}

@@ -55,3 +55,6 @@
   .calculator-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
   .calculator-fields > :is(fieldset, p, details, button) { grid-column: 1 / -1; }
 }
+
+.table-scroll-hint { margin: 0 0 8px; color: var(--muted); font-size: .8125rem; line-height: 1.5; }
+.breakdown-table-group { min-width: 0; }

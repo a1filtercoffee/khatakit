@@ -1,0 +1,42 @@
+name: Visual component checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm ci --prefix scripts/visual-review
+      - run: npx --prefix scripts/visual-review playwright install --with-deps chromium
+      - run: npm run build
+      - name: Start production build
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4177 > /tmp/site.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4177/ > /dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/site.log
+          exit 1
+      - name: Check component geometry and capture review screenshots
+        run: npm --prefix scripts/visual-review run check
+        env:
+          VISUAL_ASSERTIONS_ONLY: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: visual-review
+          path: |
+            scripts/visual-review/playwright-report
+            scripts/visual-review/test-results
+          retention-days: 14
