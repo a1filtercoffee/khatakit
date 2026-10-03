@@ -43,7 +43,7 @@ export default function GstForm({ input, errors, onChange }: GstFormProps) {
   };
 
   return (
-    <div className="form-stack">
+    <div className="form-stack calculator-fields">
       <Select
         label="Return type"
         value={input.returnType}

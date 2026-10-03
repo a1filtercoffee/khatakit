@@ -49,7 +49,7 @@
   --space-8: 32px;
   --space-10: 40px;
   --page-width: 1240px;
-  --reading-width: 820px;
+  --reading-width: 800px;
   --motion-fast: 150ms;
   --motion-chart: 180ms;
   --motion-press: 100ms;
@@ -60,7 +60,7 @@
   --font-brand: Georgia, 'Times New Roman', serif;
   --motion-spin: 850ms;
   /* Smallest text anywhere on the site. */
-  --type-small: 0.75rem;
+  --type-small: 0.875rem;
   --type-label: 0.875rem;
   --type-body: 1rem;
   /* Primary result figures, the same size in every calculator. */

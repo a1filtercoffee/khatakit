@@ -12,7 +12,7 @@ interface AdvanceTaxFormProps {
 
 export default function AdvanceTaxForm({ form, errors, onChange }: AdvanceTaxFormProps) {
   return (
-    <div className="form-stack">
+    <div className="form-stack calculator-fields">
       <p className="field-help">
         For regular quarterly instalments and ordinary-rate income.{' '}
         <a href="/presumptive-income-calculator">Presumptive filers use a different schedule.</a>{' '}

@@ -13,7 +13,7 @@ interface PresumptiveFormProps {
 export default function PresumptiveForm({ input, errors, onChange }: PresumptiveFormProps) {
   const business = input.scheme === '44AD';
   return (
-    <div className="form-stack">
+    <div className="form-stack calculator-fields">
       <p className="field-help">
         This estimates tax after you have established eligibility. Your business or profession,
         entity type and residency also matter.{' '}
