@@ -113,7 +113,7 @@ describe('route registry', () => {
       });
     }
     expect(PUBLISHER).toEqual({ name: 'filtercoffee.dev', url: 'https://filtercoffee.dev' });
-    expect(REPO_URL).toBe('https://github.com/sagrkv/khatakit');
+    expect(REPO_URL).toBe('https://github.com/a1filtercoffee/khatakit');
   });
 
   it('lists every calculator on the home page collection', () => {

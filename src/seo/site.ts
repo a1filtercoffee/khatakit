@@ -3,7 +3,7 @@ export const SITE_NAME = 'Khatakit';
 export const OG_IMAGE_URL = `${SITE_URL}/og-image.png`;
 export const LOGO_URL = `${SITE_URL}/logo.png`;
 
-export const REPO_URL = 'https://github.com/sagrkv/khatakit';
+export const REPO_URL = 'https://github.com/a1filtercoffee/khatakit';
 export const ISSUES_URL = `${REPO_URL}/issues`;
 export const RULES_REVIEW_URL = `${REPO_URL}/blob/main/docs/RULES-REVIEW.md`;
 
